@@ -1,0 +1,337 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xj.dao.SalaryMapper" >
+  <resultMap id="BaseResultMap" type="com.xj.po.Salary" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="day" property="day" jdbcType="DOUBLE" />
+    <result column="daymoney" property="daymoney" jdbcType="DOUBLE" />
+    <result column="worktime" property="worktime" jdbcType="DOUBLE" />
+    <result column="worktimemoney" property="worktimemoney" jdbcType="DOUBLE" />
+    <result column="spring" property="spring" jdbcType="INTEGER" />
+    <result column="springmoney" property="springmoney" jdbcType="DOUBLE" />
+    <result column="yingfa" property="yingfa" jdbcType="DOUBLE" />
+    <result column="shifa" property="shifa" jdbcType="DOUBLE" />
+    <result column="date" property="date" jdbcType="DATE" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, uid, day, daymoney, worktime, worktimemoney, spring, springmoney, yingfa, shifa, 
+    date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.xj.po.SalaryExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from salary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from salary
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from salary
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.xj.po.SalaryExample" >
+    delete from salary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.xj.po.Salary" >
+    insert into salary (id, uid, day, 
+      daymoney, worktime, worktimemoney, 
+      spring, springmoney, yingfa, 
+      shifa, date)
+    values (#{id,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{day,jdbcType=DOUBLE}, 
+      #{daymoney,jdbcType=DOUBLE}, #{worktime,jdbcType=DOUBLE}, #{worktimemoney,jdbcType=DOUBLE}, 
+      #{spring,jdbcType=INTEGER}, #{springmoney,jdbcType=DOUBLE}, #{yingfa,jdbcType=DOUBLE}, 
+      #{shifa,jdbcType=DOUBLE}, #{date,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.xj.po.Salary" >
+    insert into salary
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="day != null" >
+        day,
+      </if>
+      <if test="daymoney != null" >
+        daymoney,
+      </if>
+      <if test="worktime != null" >
+        worktime,
+      </if>
+      <if test="worktimemoney != null" >
+        worktimemoney,
+      </if>
+      <if test="spring != null" >
+        spring,
+      </if>
+      <if test="springmoney != null" >
+        springmoney,
+      </if>
+      <if test="yingfa != null" >
+        yingfa,
+      </if>
+      <if test="shifa != null" >
+        shifa,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="day != null" >
+        #{day,jdbcType=DOUBLE},
+      </if>
+      <if test="daymoney != null" >
+        #{daymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="worktime != null" >
+        #{worktime,jdbcType=DOUBLE},
+      </if>
+      <if test="worktimemoney != null" >
+        #{worktimemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="spring != null" >
+        #{spring,jdbcType=INTEGER},
+      </if>
+      <if test="springmoney != null" >
+        #{springmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="yingfa != null" >
+        #{yingfa,jdbcType=DOUBLE},
+      </if>
+      <if test="shifa != null" >
+        #{shifa,jdbcType=DOUBLE},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.xj.po.SalaryExample" resultType="java.lang.Integer" >
+    select count(*) from salary
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update salary
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.uid != null" >
+        uid = #{record.uid,jdbcType=INTEGER},
+      </if>
+      <if test="record.day != null" >
+        day = #{record.day,jdbcType=DOUBLE},
+      </if>
+      <if test="record.daymoney != null" >
+        daymoney = #{record.daymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.worktime != null" >
+        worktime = #{record.worktime,jdbcType=DOUBLE},
+      </if>
+      <if test="record.worktimemoney != null" >
+        worktimemoney = #{record.worktimemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.spring != null" >
+        spring = #{record.spring,jdbcType=INTEGER},
+      </if>
+      <if test="record.springmoney != null" >
+        springmoney = #{record.springmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="record.yingfa != null" >
+        yingfa = #{record.yingfa,jdbcType=DOUBLE},
+      </if>
+      <if test="record.shifa != null" >
+        shifa = #{record.shifa,jdbcType=DOUBLE},
+      </if>
+      <if test="record.date != null" >
+        date = #{record.date,jdbcType=DATE},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update salary
+    set id = #{record.id,jdbcType=INTEGER},
+      uid = #{record.uid,jdbcType=INTEGER},
+      day = #{record.day,jdbcType=DOUBLE},
+      daymoney = #{record.daymoney,jdbcType=DOUBLE},
+      worktime = #{record.worktime,jdbcType=DOUBLE},
+      worktimemoney = #{record.worktimemoney,jdbcType=DOUBLE},
+      spring = #{record.spring,jdbcType=INTEGER},
+      springmoney = #{record.springmoney,jdbcType=DOUBLE},
+      yingfa = #{record.yingfa,jdbcType=DOUBLE},
+      shifa = #{record.shifa,jdbcType=DOUBLE},
+      date = #{record.date,jdbcType=DATE}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.xj.po.Salary" >
+    update salary
+    <set >
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="day != null" >
+        day = #{day,jdbcType=DOUBLE},
+      </if>
+      <if test="daymoney != null" >
+        daymoney = #{daymoney,jdbcType=DOUBLE},
+      </if>
+      <if test="worktime != null" >
+        worktime = #{worktime,jdbcType=DOUBLE},
+      </if>
+      <if test="worktimemoney != null" >
+        worktimemoney = #{worktimemoney,jdbcType=DOUBLE},
+      </if>
+      <if test="spring != null" >
+        spring = #{spring,jdbcType=INTEGER},
+      </if>
+      <if test="springmoney != null" >
+        springmoney = #{springmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="yingfa != null" >
+        yingfa = #{yingfa,jdbcType=DOUBLE},
+      </if>
+      <if test="shifa != null" >
+        shifa = #{shifa,jdbcType=DOUBLE},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=DATE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.xj.po.Salary" >
+    update salary
+    set uid = #{uid,jdbcType=INTEGER},
+      day = #{day,jdbcType=DOUBLE},
+      daymoney = #{daymoney,jdbcType=DOUBLE},
+      worktime = #{worktime,jdbcType=DOUBLE},
+      worktimemoney = #{worktimemoney,jdbcType=DOUBLE},
+      spring = #{spring,jdbcType=INTEGER},
+      springmoney = #{springmoney,jdbcType=DOUBLE},
+      yingfa = #{yingfa,jdbcType=DOUBLE},
+      shifa = #{shifa,jdbcType=DOUBLE},
+      date = #{date,jdbcType=DATE}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+   <select id="SalaryCountByQueryVo" parameterType="com.xj.po.QueryVo"
+		resultType="Integer">
+		select count(id) from salary
+		<where>
+			<if test="newuser != null and newuser != ''">
+				and uid = #{newuser}
+			</if>
+			<if test="newyear != null and newyear != ''">
+				and year(date) = #{newyear}
+			</if>
+			<if test="newmonth != null and newmonth != ''">
+				and month(date) = #{newmonth}
+			</if>
+		</where>
+	</select>
+	<select id="selectSalaryListByQueryVo" parameterType="com.xj.po.QueryVo"
+		resultMap="BaseResultMap">
+		select * from salary
+		<where>
+		   <if test="newuser != null and newuser != ''">
+				and uid = #{newuser}
+			</if>
+			<if test="newyear != null and newyear != ''">
+				and year(date) = #{newyear}
+			</if>
+			<if test="newmonth != null and newmonth != ''">
+				and month(date) = #{newmonth}
+			</if>
+	    </where>
+		limit #{startRow},#{size}
+	</select>
+</mapper>
